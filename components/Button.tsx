@@ -13,7 +13,7 @@ type ButtonProps = React.ButtonHTMLAttributes<HTMLButtonElement> & {
       sizes: {
         sm: 'px-6 py-2 text-sm min-w-28',
         md: 'px-8 py-2 min-w-32',
-        lg: 'px-10 py-2 text-md min-w-32',
+        lg: 'px-10 py-4 text-md min-w-32',
         full: 'p-2 w-full',
       },
       margins: {

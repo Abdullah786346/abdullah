@@ -1,4 +1,5 @@
 import type { Config } from "tailwindcss";
+import CreatePortfolio from "./components/CreatePortfolio";
 
 const config: Config = {
   content: [
@@ -16,7 +17,8 @@ const config: Config = {
       colors: {
         customBlue: "#10248C",
         customGray: "#E1E6ED",
-        hero:"#0E0218"
+        hero:"#0E0218",
+        CreatePortfolio:"#2A2F6D",
       },
     },
   },
