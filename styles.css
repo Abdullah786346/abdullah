@@ -1,0 +1,8 @@
+@media (max-width: 767px) {
+    .footer-subscription-box {
+      margin: 0 auto; 
+      text-align: center;
+      width: 90%; 
+      margin-bottom: 2rem;
+    }
+  }
