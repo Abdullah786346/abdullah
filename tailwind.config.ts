@@ -16,6 +16,7 @@ const config: Config = {
       colors: {
         customBlue: "#10248C",
         customGray: "#E1E6ED",
+        hero:"#0E0218"
       },
     },
   },

@@ -13,7 +13,7 @@ const poppins = Poppins({
 
 function Footer() {
   return (
-    <footer className={`bg-black text-white p-8 rounded-t-[20px] fixed bottom-0 left-0 w-full ${space.className}`}>
+    <footer className={`bg-black text-white p-8 rounded-t-[20px] bottom-0 left-0 w-full ${space.className}`}>
       <div className="container mx-auto">
         <div className="flex flex-col-reverse md:flex-row justify-between items-start">
           <div className="mb-6 md:mb-0">
