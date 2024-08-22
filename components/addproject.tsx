@@ -149,3 +149,15 @@ const ProjectSetupForm = () => {
 };
 
 export default ProjectSetupForm;
+
+
+// Fixed Size and Responsiveness:
+
+// The form container has fixed max-width values for different screen sizes (max-w-lg, max-w-xl, lg:max-w-2xl). This keeps the form's dimensions consistent across devices.
+// The size of the component is now controlled, so it doesn't change with content.
+// Input Functionality:
+
+// The input fields are properly linked to state and should now accept text or file uploads without issues.
+// Responsive & Mobile-Friendly:
+
+// The component is responsive and adapts to different screen sizes, maintaining usability on mobile devices.
