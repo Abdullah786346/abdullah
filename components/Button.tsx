@@ -8,7 +8,7 @@ type ButtonProps = React.ButtonHTMLAttributes<HTMLButtonElement> & {
   const Button = ({ margin, variant, size, children, ...rest }: ButtonProps) => {
     const buttonStyles = {
       variants: {
-        blue: 'relative bg-customBlue text-white hover:bg-customBlue/80',
+        blue: 'relative bg-customBlue-800 text-white hover:bg-customBlue/80',
       },
       sizes: {
         sm: 'px-6 py-2 text-sm min-w-28',

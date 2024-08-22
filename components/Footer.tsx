@@ -1,6 +1,6 @@
 import React from 'react';
 import { Space_Grotesk, Poppins } from 'next/font/google';
-import '/styles.css';
+
 
 const space = Space_Grotesk({ 
   weight: '400',
