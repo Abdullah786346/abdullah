@@ -12,13 +12,18 @@ const Categories = ({
 }) => {
   const [activeButton, setActiveButton] = useState<string>("All");
   const [searchQuery, setSearchQuery] = useState<string>("");
+  const [currentPage, setCurrentPage] = useState<number>(1);
+
+  const itemsPerPage = 4; // Number of items per page on mobile
 
   const handleClick = (buttonName: string) => {
     setActiveButton(buttonName);
+    setCurrentPage(1); // Reset to the first page when category changes
   };
 
   const handleSearchChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setSearchQuery(event.target.value.toLowerCase());
+    setCurrentPage(1); // Reset to the first page when search changes
   };
 
   // Filter images based on search query and selected category
@@ -27,8 +32,51 @@ const Categories = ({
     detail.text.toLowerCase().includes(searchQuery)
   );
 
-  const flexBoxes = filteredImageDetails.map((detail, index) => (
+  // Pagination logic for mobile devices
+  const indexOfLastItem = currentPage * itemsPerPage;
+  const indexOfFirstItem = indexOfLastItem - itemsPerPage;
+  const currentItems = filteredImageDetails.slice(indexOfFirstItem, indexOfLastItem);
+
+  const totalPages = Math.ceil(filteredImageDetails.length / itemsPerPage);
+
+  const handleNextPage = () => {
+    setCurrentPage(prevPage => (prevPage < totalPages ? prevPage + 1 : prevPage));
+  };
+
+  const handlePrevPage = () => {
+    setCurrentPage(prevPage => (prevPage > 1 ? prevPage - 1 : prevPage));
+  };
+
+  // Flex boxes for larger screens (show all items)
+  const flexBoxesForLargeScreens = filteredImageDetails.map((detail, index) => (
     <div key={index} className="relative w-1/4 p-2 group">
+      <div className="relative h-40 mb-2 overflow-hidden">
+        <Image
+          src={`/assets/${detail.Template}`}
+          alt={`Image ${index + 1}`}
+          layout="fill"
+          objectFit="cover"
+          className="transition duration-300 group-hover:blur-sm"
+        />
+        <div className="absolute inset-0 flex flex-col items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+          <button className="bg-customBlue-800 text-white px-4 py-2 mb-2 rounded-full shadow-md">Edit</button>
+          <button className="bg-customBlue-800 text-white px-4 py-2 rounded-full shadow-md">View</button>
+        </div>
+      </div>
+      <div className="flex justify-between items-start">
+        <p className="text-xs text-white">{detail.text}</p>
+        <div className="flex">
+          {Array(detail.stars).fill(null).map((_, starIndex) => (
+            <FaStar key={starIndex} className="text-yellow-400" />
+          ))}
+        </div>
+      </div>
+    </div>
+  ));
+
+  // Flex boxes for mobile screens (show paginated items)
+  const flexBoxesForMobile = currentItems.map((detail, index) => (
+    <div key={index} className="relative w-full md:w-1/4 md:p-2 p-1 group">
       <div className="relative h-40 mb-2 overflow-hidden">
         <Image
           src={`/assets/${detail.Template}`}
@@ -57,12 +105,12 @@ const Categories = ({
     <section className="h-[160vh] w-full flex flex-col bg-cover bg-center bg-black">
       <div className="container mx-auto px-5 text-center mt-16">
         <div className="flex flex-col gap-4 text-white w-full">
-          <h1 className="font-light max-w-[33rem] mx-auto" style={{ fontSize: '4vw', marginTop: '0' }}>
+          <h1 className="font-light max-w-[33rem] mx-auto" style={{ fontSize: '6vw', marginTop: '0' }}>
             {title}
           </h1>
 
-          <div className="flex justify-between items-center w-full px-16">
-            <div className="bg-[#E1E6ED] p-2 rounded-full flex gap-2 mx-2 pl-4 pr-4">
+          <div className="flex flex-col md:flex-row justify-between items-center w-full px-4 md:px-16">
+            <div className="bg-[#E1E6ED] p-2 rounded-full flex flex-wrap gap-2 justify-center md:justify-start mx-2 pl-4 pr-4 mb-4 md:mb-0">
               {["All", "Code", "NoCode", "Dark", "Light"].map((buttonName) => (
                 <button
                   key={buttonName}
@@ -78,7 +126,7 @@ const Categories = ({
               ))}
             </div>
 
-            <div className="relative mx-2 flex items-center">
+            <div className="relative mx-2 flex items-center mb-4 md:mb-0">
               <FaSearch className="absolute left-3 text-black" />
               <input
                 type="text"
@@ -90,9 +138,35 @@ const Categories = ({
             </div>
           </div>
 
-          <div className="flex flex-wrap mt-8 gap-4 justify-center">
-            {flexBoxes}
+          {/* Flex boxes for larger screens */}
+          <div className="hidden md:flex flex-wrap mt-8 gap-4 justify-center">
+            {flexBoxesForLargeScreens}
           </div>
+
+          {/* Flex boxes for mobile screens */}
+          <div className="flex md:hidden flex-wrap mt-8 gap-4 justify-center">
+            {flexBoxesForMobile}
+          </div>
+
+          {/* Pagination controls for mobile devices */}
+          {filteredImageDetails.length > itemsPerPage && (
+            <div className="flex justify-center mt-4 md:hidden"> {/* Hide on larger screens */}
+              <button
+                className="bg-white text-black px-3 py-1 rounded-full mr-2"
+                onClick={handlePrevPage}
+                disabled={currentPage === 1}
+              >
+                Previous
+              </button>
+              <button
+                className="bg-white text-black px-3 py-1 rounded-full"
+                onClick={handleNextPage}
+                disabled={currentPage === totalPages}
+              >
+                Next
+              </button>
+            </div>
+          )}
         </div>
       </div>
     </section>

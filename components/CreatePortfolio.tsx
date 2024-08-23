@@ -9,27 +9,27 @@ const CreatePortfolio = ({
 }) => {
   return (
     <section
-      className="h-[100vh] w-full flex flex-col justify-between bg-cover bg-center bg-CreatePortfolio"
+      className="min-h-screen w-full flex flex-col justify-between bg-cover bg-center bg-CreatePortfolio"
     >
-      <div className="container mx-auto px-5 text-center flex-grow flex items-center justify-center">
-        <div className="flex flex-col gap-4 text-white">
+      <div className="container mx-auto px-5 text-center flex-grow flex flex-col md:justify-center">
+        <div className="flex flex-col gap-4 text-white w-full mt-[8rem] md:mt-0">
           <h1
             className="font-bold max-w-[33rem] mx-auto"
-            style={{ fontSize: '4vw', marginTop: '0' }}
+            style={{ fontSize: 'clamp(30px, 4vw, 48px)' }}
           >
             {title}
           </h1>
-          <div className="flex flex-col items-center gap-6 mt-[-0.5rem]">
-            <p
-              className="text-sm md:text-lg font-normal max-w-sm"
-              style={{ fontSize: '1.25vw' }}
-            >
-              {desc}
-            </p>
+          <p
+            className="text-sm md:text-lg font-normal max-w-sm mx-auto mb-6 md:mb-0"
+            style={{ fontSize: 'clamp(14px, 1.25vw, 20px)' }}
+          >
+            {desc}
+          </p>
+          <div className="flex-grow flex items-center justify-center mt-4 md:mt-[-0.5rem]">
             <img
               src='/assets/CreatePortfolio.png'
               alt="Create Portfolio"
-              className="max-w-[55%] h-auto mt-4 cursor-pointer hover:opacity-80 transition-opacity duration-300"
+              className="max-w-[80%] md:max-w-[55%] h-auto cursor-pointer hover:opacity-80 transition-opacity duration-300"
             />
           </div>
         </div>

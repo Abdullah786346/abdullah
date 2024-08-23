@@ -33,32 +33,32 @@ const Steps = ({ title }: { title: string }) => {
   ];
 
   return (
-    <section className="min-h-screen w-full flex flex-col bg-indigo-900 p-8">
-      <h1 className="text-white text-5xl font-light text-center mb-16">
+    <section className="min-h-screen w-full flex flex-col bg-indigo-900 p-4 sm:p-8">
+      <h1 className="text-white text-3xl sm:text-5xl font-light text-center mb-8 sm:mb-16">
         {title}
       </h1>
-      <div className="flex flex-col items-center space-y-16">
+      <div className="flex flex-col items-center space-y-8 sm:space-y-16">
         {steps.map((step) => (
           <div
             key={step.number}
-            className={`flex w-full ${step.number % 2 === 0 ? 'justify-end' : 'justify-start'}`}
+            className={`flex w-full ${step.number % 2 === 0 ? 'justify-end' : 'justify-start'} flex-col sm:flex-row`}
           >
             <div
-              className="bg-white rounded-lg p-8 flex items-center w-3/5 h-[16rem]"
+              className="bg-white rounded-lg p-4 sm:p-8 flex flex-col sm:flex-row items-center w-full sm:w-3/5 h-auto sm:h-[16rem]"
               style={{ paddingLeft: step.paddingLeft }} 
             >
-              <div className="flex-shrink-0 mr-4"> 
+              <div className="flex-shrink-0 mb-4 sm:mb-0 sm:mr-4"> 
                 <img
                   src={step.icon}
                   alt={`Step ${step.number} icon`}
                   style={{ height: step.height }} 
-                  className="w-full object-contain"
+                  className="w-16 steps-icons sm:w-full object-contain"
                 />
               </div>
-              <div className="flex flex-col justify-center h-full">
-                <h2 className="text-indigo-800 text-2xl font-bold mb-4">Step {step.number}</h2>
-                <hr className="border-t-2 border-blue-500 mb-4 w-[23%]" />
-                <p className="text-gray-900 font-bold">{step.description}</p>
+              <div className="flex flex-col justify-center h-full text-center sm:text-left px-4 sm:px-0">
+                <h2 className="text-indigo-800 text-xl sm:text-2xl font-bold mb-2 sm:mb-4">Step {step.number}</h2>
+                <hr className="border-t-2 border-blue-500 mb-4 sm:mb-4 sm:w-[23%] mx-auto sm:mx-0 w-[20%]" />
+                <p className="text-gray-900 font-bold text-sm sm:text-base">{step.description}</p>
               </div>
             </div>
           </div>
