@@ -3,12 +3,11 @@ import Link from "next/link";
 
 const Header: React.FC = () => {
   return (
-    <header className="bg-gradient-to-r from-black  to-blue-900 py-4">
+    <header className="bg-[#0a192f] py-4">
       <div className="container mx-auto flex justify-between items-center px-4 md:px-8">
         <div className="text">
-          <Link href="/">
-            <div className="text-white font-bold text-xl">Portfolio.</div>
-          </Link>
+        <div className="text-white font-bold text-xl">Portfolio.</div>
+         
         </div>
         <nav>
           <ul className="flex space-x-6">
@@ -33,8 +32,8 @@ const Header: React.FC = () => {
               </Link>
             </li>
             <li>
-              <Link href="/contacts">
-                <div className="text-white hover:text-gray-300">Contacts</div>
+              <Link href="/contact">
+                <div className="text-white hover:text-gray-300">Contact</div>
               </Link>
             </li>
           </ul>
