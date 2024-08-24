@@ -1,32 +1,48 @@
+"use client";
+
+import React from 'react';
+
 export default function AboutMeSection() {
+  const [isSmallScreen, setIsSmallScreen] = React.useState(false);
+
+  React.useEffect(() => {
+    const handleResize = () => {
+      setIsSmallScreen(window.innerWidth < 1024);
+    };
+
+    // Initial check
+    handleResize();
+
+    // Add event listener
+    window.addEventListener('resize', handleResize);
+    return () => {
+      window.removeEventListener('resize', handleResize);
+    };
+  }, []);
+
   return (
-    <div className="relative min-h-screen px-4 py-8 md:px-8 md:py-12 lg:px-16 lg:py-24 bg-[#323846]">
-      <div className="relative flex items-center justify-start h-screen">
-        {/* Moderated circle shadow */}
-        <div className="absolute left-[5%] top-1/2 transform -translate-y-1/2 w-[300px] h-[300px] border-8 border-[#01eeff] rounded-full animate-spin-slow shadow-[0_0_60px_20px_rgba(1,238,255,0.6)] z-0"></div>
-        <img
-          src="/assets/Maskgroup.svg"
-          alt="Profile"
-          className="absolute z-10 w-[500px] h-[400px] lg:left-[-3%] transform -translate-x-[3%] -translate-y-[13%]" // Position image left and slightly upward
-        />
-      </div>
-      <div className="lg:absolute lg:left-1/2 lg:top-1/2 lg:transform lg:-translate-x-1/2 lg:-translate-y-1/2 lg:text-left lg:px-8 mt-12 lg:mt-0 lg:ml-[10%]"> {/* Added margin-left */}
-        <div className="text-white text-3xl md:text-4xl lg:text-5xl font-extrabold font-['Sen']">
-          <span className="block">About </span>
-          <span className="block text-[#01eeff]">Me</span>
+    <div
+      className={`relative min-h-screen p-8 bg-[#323846] flex ${isSmallScreen ? 'flex-col items-center text-center' : 'flex-row items-center text-left'}`}
+    >
+      <img
+        src="/assets/circle.png"
+        alt="Profile"
+        className={`w-${isSmallScreen ? '4/5' : '1/2'} max-w-[400px] h-auto ${isSmallScreen ? 'mb-8' : 'mr-8'}`}
+      />
+      <div className="text-white max-w-[600px]">
+        <div className="font-sen font-extrabold text-3xl mb-4">
+          <span>About </span>
+          <span className="text-[#01eeff]">Me</span>
         </div>
-        <div className="text-white text-2xl md:text-3xl lg:text-4xl font-extrabold font-['Inter'] mt-4">
+        <div className="font-inter font-extrabold text-2xl mb-4">
           Full Stack Developer
         </div>
-        <div className="text-[#eeeeee]/75 text-lg md:text-xl lg:text-2xl font-normal font-['Poppins'] mt-4">
+        <div className="font-poppins font-normal text-lg mb-6">
           Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc vulputate libero et velit interdum, ac aliquet odio mattis.
         </div>
-        <div className="mt-8">
-          {/* Button with moderated shadow */}
-          <button className="bg-[#01eeff] text-white px-6 py-3 rounded-lg shadow-[0_0_20px_10px_rgba(1,238,255,0.6)] hover:shadow-[0_0_30px_15px_rgba(1,238,255,0.8)] transition duration-300">
-            See More
-          </button>
-        </div>
+        <button className="bg-[#01eeff] text-white py-3 px-6 rounded-lg shadow-lg transition-shadow duration-300 hover:shadow-xl">
+          See More
+        </button>
       </div>
     </div>
   );

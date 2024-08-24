@@ -1,3 +1,4 @@
+import Navbar from '../components/Navbar'
 import AboutUs from '../components/AboutUs';
 import Hero from '../components/Hero';
 import OurServices from '../components/OurServices';
@@ -6,6 +7,7 @@ import ContactMe from '../components/ContactMe';
 export default function Home() {
   return (
     <div className="bg-gray-900">
+      <Navbar/>
       <Hero />
       <AboutUs />
       <OurServices />
