@@ -6,8 +6,8 @@ const RightSidebar: React.FC = function(){
     const [color, setColor] = useState('#000000');
     const [fontColor, setFontColor] = useState('#000000');
     const [image, setImage] = useState('');
-    const [font, setfont] = useState('');
-    const [fontSize, setFontSize] = useState('');
+    const [font, setfont] = useState('Bold');
+    const [fontSize, setFontSize] = useState('24');
     const [addPage, setAddPage] = useState(false)
 
     const setColorValue = function (e:ChangeEvent<HTMLInputElement>){
@@ -44,7 +44,7 @@ const RightSidebar: React.FC = function(){
              <option value="bold" >Bold</option>
              <option value="light">Light</option>
          </select>
-         <input type="number" className='ml-3 w-[20%] bg-[#F1ECEC]' placeholder='24'
+         <input type="number" min='0' className='ml-3 w-[20%] bg-[#F1ECEC]' value={fontSize}
          onChange={(e)=>{
              setFontSize(e.target.value)
          }}
