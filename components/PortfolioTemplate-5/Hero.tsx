@@ -1,8 +1,44 @@
-import React from 'react';
+"use client"; 
+import React, { useState, useEffect } from 'react';
 import { FaTwitter, FaFacebook, FaInstagram, FaYoutube } from 'react-icons/fa';
 
 const Hero = () => {
+  const [text, setText] = useState('');
+  const [isDeleting, setIsDeleting] = useState(false);
+  const [delta, setDelta] = useState(100); // Set initial delta to 100ms for faster speed
+  const [loopNum, setLoopNum] = useState(0);
+  const toRotate = ["UI/UX Designer", "Backend Developer", "Frontend Developer"];
+  const period = 1000; // Reduce period to 1 second for faster transition
+
+  useEffect(() => {
+    const tick = () => {
+      let i = loopNum % toRotate.length;
+      let fullText = toRotate[i];
+      let updatedText = isDeleting ? fullText.substring(0, text.length - 1) : fullText.substring(0, text.length + 1);
+
+      setText(updatedText);
+
+      if (isDeleting) {
+        setDelta(50); // Set a fixed small delta for fast deletion
+      }
+
+      if (!isDeleting && updatedText === fullText) {
+        setIsDeleting(true);
+        setDelta(period);
+      } else if (isDeleting && updatedText === '') {
+        setIsDeleting(false);
+        setLoopNum(loopNum + 1);
+        setDelta(100); // Reset delta to 100ms for the next word
+      }
+    };
+
+    let ticker = setInterval(tick, delta);
+
+    return () => clearInterval(ticker);
+  }, [text, delta, isDeleting, loopNum]);
+
   return (
+  
     <div className="pt-20 bg-black"> {/* Background color set to black */}
       <div className="flex flex-col md:flex-row items-center justify-between px-4 sm:px-8 md:px-16 py-8 md:py-20 relative z-10">
         {/* Text Content */}
@@ -15,7 +51,7 @@ const Hero = () => {
             Duaa Inshrah
           </h2>
           <p className="text-white sm:text-lg md:text-xl lg:text-2xl mb-4 sm:mb-6">
-            And I'm a <span className="text-blue-500">Full Stack Developer</span>
+            And I'm a <span className="text-blue-500">{text}</span>
           </p>
           <div className="flex items-center space-x-3 sm:space-x-4 md:space-x-6 mb-4 sm:mb-6">
             <FaTwitter className="text-blue-400 hover:text-blue-500 transition duration-300 cursor-pointer text-xl sm:text-2xl md:text-3xl" />

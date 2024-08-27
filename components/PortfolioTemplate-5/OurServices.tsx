@@ -7,8 +7,8 @@ export default function ServicesSection() {
       </div>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
         {/* First Box */}
-        <div className="bg-[#323846] rounded-lg p-6 h-80 md:h-88 lg:h-96 flex flex-col items-center justify-center">
-          <div className="text-white text-xl md:text-2xl lg:text-3xl font-extrabold font-['Inter'] mb-4 ">
+        <div className="bg-[#323846] rounded-lg p-6 h-80 md:h-88 lg:h-96 flex flex-col items-center justify-center transform transition-transform duration-300 hover:scale-105 hover:shadow-[0_0_30px_15px_rgba(0,255,255,0.8)]">
+          <div className="text-white text-xl md:text-2xl lg:text-3xl font-extrabold font-['Inter'] mb-4">
             UX-UI Designer
           </div>
           <div className="text-[#d9d9d9] text-base md:text-lg lg:text-xl font-normal font-['Poppins'] mb-4 text-center">
@@ -20,7 +20,7 @@ export default function ServicesSection() {
         </div>
 
         {/* Second Box */}
-        <div className="bg-[#323846] rounded-lg p-6 h-80 md:h-88 lg:h-96 flex flex-col items-center justify-center">
+        <div className="bg-[#323846] rounded-lg p-6 h-80 md:h-88 lg:h-96 flex flex-col items-center justify-center transform transition-transform duration-300 hover:scale-105 hover:shadow-[0_0_30px_15px_rgba(0,255,255,0.8)]">
           <div className="text-white text-xl md:text-2xl lg:text-3xl font-extrabold font-['Inter'] mb-4">
             Frontend Developer
           </div>
@@ -33,7 +33,7 @@ export default function ServicesSection() {
         </div>
 
         {/* Third Box */}
-        <div className="bg-[#323846] rounded-lg p-6 h-80 md:h-88 lg:h-96 flex flex-col items-center justify-center">
+        <div className="bg-[#323846] rounded-lg p-6 h-80 md:h-88 lg:h-96 flex flex-col items-center justify-center transform transition-transform duration-300 hover:scale-105 hover:shadow-[0_0_30px_15px_rgba(0,255,255,0.8)]">
           <div className="text-white text-xl md:text-2xl lg:text-3xl font-extrabold font-['Inter'] mb-4">
             Backend Developer
           </div>

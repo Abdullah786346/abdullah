@@ -1,37 +1,41 @@
-"use client"; // Add this line at the top
-
+"use client";
 import React, { useState } from 'react';
 import Link from 'next/link';
+import { Link as ScrollLink } from 'react-scroll';
+import { GiHamburgerMenu, GiCancel } from "react-icons/gi";
 
 const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+
+  const offsetValue = -10; // Adjust this value based on your navbar height and desired centering
 
   return (
     <header className="fixed top-0 w-full bg-black text-white z-50">
       <div className="flex justify-between items-center px-4 sm:px-8 py-4">
         {/* Desktop Content */}
         <div className="flex items-center w-full">
-          {/* Desktop Portfolio Button (Left Side) */}
           <Link href="/" className="text-[20px] text-white px-4 py-2">
             Portfolio
           </Link>
-
-          {/* Desktop Navbar (Right Side) */}
           <nav className="hidden md:flex items-center space-x-6 sm:space-x-8 text-sm sm:text-lg ml-auto">
-            <Link href="/" className="hover:text-teal-400 transition duration-300">Home</Link>
-            <Link href="/about" className="hover:text-teal-400 transition duration-300">About</Link>
-            <Link href="/services" className="hover:text-teal-400 transition duration-300">Services</Link>
-            <Link href="/contact" className="hover:text-teal-400 transition duration-300">Contacts</Link>
+            <ScrollLink activeClass="text-yellow-400" to="Hero" spy={true} smooth={true} offset={offsetValue} duration={500} className="hover:text-teal-400 transition duration-300 cursor-pointer">Home</ScrollLink>
+            <ScrollLink activeClass="text-yellow-400" to="AboutUs" spy={true} smooth={true} offset={offsetValue} duration={500} className="hover:text-teal-400 transition duration-300 cursor-pointer">About</ScrollLink>
+            <ScrollLink activeClass="text-yellow-400" to="OurServices" spy={true} smooth={true} offset={offsetValue} duration={500} className="hover:text-teal-400 transition duration-300 cursor-pointer">Services</ScrollLink>
+            <ScrollLink activeClass="text-yellow-400" to="ContactMe" spy={true} smooth={true} offset={offsetValue} duration={500} className="hover:text-teal-400 transition duration-300 cursor-pointer">Contacts</ScrollLink>
           </nav>
         </div>
 
-        {/* Mobile Menu Button (Right Side) */}
+        {/* Mobile Menu Button */}
         <button
           className="md:hidden text-teal-400 focus:outline-none"
           onClick={() => setIsMenuOpen(!isMenuOpen)}
         >
           <span className="sr-only">Open menu</span>
-          MENU
+          {isMenuOpen ? (
+            <GiCancel className="w-6 h-6" />
+          ) : (
+            <GiHamburgerMenu className="w-6 h-6" />
+          )}
         </button>
       </div>
 
@@ -43,14 +47,13 @@ const Navbar = () => {
             onClick={() => setIsMenuOpen(false)}
           >
             <span className="sr-only">Close menu</span>
-            CLOSE
+            <GiCancel className="w-6 h-6" />
           </button>
           <nav className="flex flex-col space-y-4 mt-12">
-            <Link href="/" className="hover:text-teal-400 transition duration-300">Home</Link>
-            <Link href="/about" className="hover:text-teal-400 transition duration-300">About</Link>
-            <Link href="/services" className="hover:text-teal-400 transition duration-300">Services</Link>
-            <Link href="/portfolio" className="hover:text-teal-400 transition duration-300">Portfolio</Link>
-            <Link href="/contact" className="hover:text-teal-400 transition duration-300">Contacts</Link>
+            <ScrollLink activeClass="text-yellow-400" to="Hero" spy={true} smooth={true} offset={offsetValue} duration={500} className="hover:text-teal-400 transition duration-300 cursor-pointer">Home</ScrollLink>
+            <ScrollLink activeClass="text-yellow-400" to="AboutUs" spy={true} smooth={true} offset={offsetValue} duration={500} className="hover:text-teal-400 transition duration-300 cursor-pointer">About</ScrollLink>
+            <ScrollLink activeClass="text-yellow-400" to="OurServices" spy={true} smooth={true} offset={offsetValue} duration={500} className="hover:text-teal-400 transition duration-300 cursor-pointer">Services</ScrollLink>
+            <ScrollLink activeClass="text-yellow-400" to="ContactMe" spy={true} smooth={true} offset={offsetValue} duration={500} className="hover:text-teal-400 transition duration-300 cursor-pointer">Contacts</ScrollLink>
           </nav>
         </div>
       )}
@@ -59,4 +62,3 @@ const Navbar = () => {
 };
 
 export default Navbar;
-
