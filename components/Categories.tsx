@@ -1,9 +1,13 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+import { gsap } from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { FaSearch, FaStar } from 'react-icons/fa';
 import Image from 'next/image';
 import { imageDetails } from '../data/Templates';
+
+gsap.registerPlugin(ScrollTrigger);
 
 const Categories = ({
   title,
@@ -47,9 +51,50 @@ const Categories = ({
     setCurrentPage(prevPage => (prevPage > 1 ? prevPage - 1 : prevPage));
   };
 
+  // Animation setup
+  useEffect(() => {
+    // Animate flex boxes on larger screens
+    gsap.fromTo(
+      ".flex-box-large",
+      { opacity: 0, y: 50 },
+      {
+        opacity: 1,
+        y: 0,
+        duration: 1,
+        ease: "power3.out",
+        scrollTrigger: {
+          trigger: ".flex-box-large",
+          start: "top 80%",
+          end: "bottom 60%",
+          toggleActions: "play none none reverse",
+        },
+        stagger: 0.3,
+      }
+    );
+
+    // Animate flex boxes on mobile screens
+    gsap.fromTo(
+      ".flex-box-mobile",
+      { opacity: 0, y: 50 },
+      {
+        opacity: 1,
+        y: 0,
+        duration: 1,
+        ease: "power3.out",
+        scrollTrigger: {
+          trigger: ".flex-box-mobile",
+          start: "top 80%",
+          end: "bottom 60%",
+          toggleActions: "play none none reverse",
+        },
+        stagger: 0.3,
+      }
+    );
+  }, []);
+
   // Flex boxes for larger screens (show all items)
   const flexBoxesForLargeScreens = filteredImageDetails.map((detail, index) => (
-    <div key={index} className="relative w-1/4 p-2 group">
+    <div key={index} className="relative w-1/4 p-2 group flex-box-large">
       <div className="relative h-40 mb-2 overflow-hidden">
         <Image
           src={`/assets/${detail.Template}`}
@@ -76,7 +121,7 @@ const Categories = ({
 
   // Flex boxes for mobile screens (show paginated items)
   const flexBoxesForMobile = currentItems.map((detail, index) => (
-    <div key={index} className="relative w-full md:w-1/4 md:p-2 p-1 group">
+    <div key={index} className="relative w-full md:w-1/4 md:p-2 p-1 group flex-box-mobile">
       <div className="relative h-40 mb-2 overflow-hidden">
         <Image
           src={`/assets/${detail.Template}`}
