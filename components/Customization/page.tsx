@@ -6,19 +6,27 @@ import Main from './mainContent'
 import { useState } from 'react'
 
 const Customization: React.FC = ()=>{
-    const [show, setShow] = useState(false);
-
+    const [showTemplates, setShowTemplates] = useState(false);
+    const handleShowTemplate= function (){
+        setShowTemplates(!showTemplates)
+    }
     return (
         <div>
-           
+               
             <h1 className='flex justify-center border border-1 border-gray-800 h-[10vh] bg-gray-400'>Navbar Goes Here</h1>
-            <button className='rounded-md block lg:hidden text-md font-bold bg-[#6183F2] text-[#ffffff]'>
+            <div className='block flex justify-center lg:hidden '> 
+            <button className='rounded-md text-md py-3 px-1 font-bold bg-[#6183F2] text-[#ffffff] mt-[8vh]' onClick={
+                ()=>{
+            handleShowTemplate()
+                }
+            }>
                 Change Template
             </button>
-         
-        <div className='grid grid-cols-3 lg:grid-cols-4 h-[100vh] mt-[10vh] border border-3'>
+           </div>
+           
+        <div className='grid grid-cols-3 lg:grid-cols-4 h-[100vh] mt-2 border border-3 lg:mt-[10vh]'>
          {/**Left Sidebar */}
-            <LeftSidebar />
+            <LeftSidebar btnClicked = {showTemplates}/>
             {
                 /**
                  Middle Content

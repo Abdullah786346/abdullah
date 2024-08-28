@@ -1,6 +1,6 @@
 import React from "react";
 
-const LeftSidebar: React.FC = function(){
+const LeftSidebar: React.FC <{btnClicked: Boolean}> = function(props){
 {/**Though this will cause trouble in react due to having repeated keys but its just a manifestation of how to fech templates */}
     const numberOfTemplates = 8;
     const templates = Array(numberOfTemplates).fill(0).map((_, index)=>{
@@ -13,7 +13,7 @@ const LeftSidebar: React.FC = function(){
     })
 
     return(
-    <div className='hidden lg:block col-span-1 overflow-scroll'>
+    <div className={`${props.btnClicked?'grid':'hidden'} absolute lg:static w-[40%] lg:w-auto lg:grid col-span-1 overflow-scroll h-[100%] sm:z-10 md:z-10 bg-[#ffffff]`}>
                 <h3 className='text-lg font-bold my-3 sticky top-0 bg-[#ffffff]'>Change Template</h3>
                
                 {templates}
