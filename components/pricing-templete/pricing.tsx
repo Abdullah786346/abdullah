@@ -98,7 +98,7 @@ const PricingCards = () => {
 
             
             <button
-              className={`bg-white hover:text-black border-2 border-black hover:bg-blue-50 duration-150 w-[150px] rounded-md font-medium my-6 mx-auto px-6 py-3 `}
+              className={`delay:30 hover:-translate-y-2 bg-white hover:text-black border-2 border-black hover:bg-blue-50 duration-150 w-[150px] rounded-md font-medium my-6 mx-auto px-6 py-3 `}
             >
              Get Started
             </button>
@@ -158,7 +158,7 @@ const PricingCards = () => {
               
              
             <button
-              className={` hover:text-black text-white hover:bg-gray-50 duration-150 w-[150px] rounded-md font-medium my-6 mx-auto px-6 py-3`}
+              className={` delay:30 hover:-translate-y-2 hover:text-black text-white hover:bg-gray-50 duration-150 w-[150px] rounded-md font-medium my-6 mx-auto px-6 py-3`}
             >
              Get Started
             </button>
@@ -189,7 +189,7 @@ const PricingCards = () => {
 
 
             <button
-              className={`bg-white hover:text-black hover:bg-blue-50 duration-150 w-[150px] rounded-md font-medium my-4 mx-auto px-6 py-3 border-2 border-black`}
+              className={`delay:30 hover:-translate-y-2 delay:30 bg-white hover:text-black hover:bg-blue-50 duration-150 w-[150px] rounded-md font-medium my-4 mx-auto px-6 py-3 border-2 border-black`}
             >
              Get Started
             </button>

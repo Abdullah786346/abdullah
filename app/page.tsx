@@ -11,7 +11,9 @@ import Signupform  from '@/components/signupform-templete/signup';
 const page = () => {
   return (
 <>
-
+<PricingCards/>
+<Signinform/>
+<Signupform/>
 </>
 
 
