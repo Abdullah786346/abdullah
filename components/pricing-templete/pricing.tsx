@@ -110,7 +110,8 @@ const PricingCards = () => {
         {cardData2.map((card, index) => (
           <div
             key={index}
-            className={`w-full shadow-xl flex flex-col p-4 my-8 px-4   rounded-b-3xl rounded-t-3xl hover:scale-105 duration-300 bg-blue-400`}
+            className={` 
+           w-full shadow-xl flex flex-col p-4 my-8 px-4   rounded-b-3xl rounded-t-3xl hover:scale-105 duration-300 bg-blue-400`}
           >
          
          <h2 className="text-md font-bold text-center text-white rounded-3xl bg-black py-2 px-2">
@@ -169,7 +170,7 @@ const PricingCards = () => {
 {cardData3.map((card, index) => (
           <div
             key={index}
-            className={`w-full  shadow-xl flex flex-col p-4 my-8 px-8   rounded-b-3xl rounded-t-3xl hover:scale-105 duration-300 bg-white`}
+            className={`slide-in-down w-full  shadow-xl flex flex-col p-4 my-8 px-8   rounded-b-3xl rounded-t-3xl hover:scale-105 duration-300 bg-white`}
           >
            
             <h2 className="text-2xl font-xs text-center py-4">
