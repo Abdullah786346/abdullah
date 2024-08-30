@@ -1,12 +1,12 @@
 "use client";
-import React, { useState, ChangeEvent } from 'react';
+import React, { useState, ChangeEvent } from "react";
 
 const ProjectSetupForm = () => {
   const [currentStep, setCurrentStep] = useState(1);
   const [formData, setFormData] = useState({
-    title: '',
-    description: '',
-    basicInfo: '',
+    title: "",
+    description: "",
+    basicInfo: "",
     media: null,
   });
 
@@ -14,7 +14,9 @@ const ProjectSetupForm = () => {
     if (currentStep < 4) setCurrentStep(currentStep + 1);
   };
 
-  const handleInputChange = (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+  const handleInputChange = (
+    e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => {
     const { name, value, files } = e.target as HTMLInputElement;
     setFormData({ ...formData, [name]: files ? files[0] : value });
   };
@@ -24,7 +26,9 @@ const ProjectSetupForm = () => {
       case 1:
         return (
           <div>
-            <label className="block text-sm font-medium text-gray-700">Title</label>
+            <label className="block text-sm font-medium text-gray-700">
+              Title
+            </label>
             <input
               type="text"
               name="title"
@@ -38,7 +42,9 @@ const ProjectSetupForm = () => {
       case 2:
         return (
           <div>
-            <label className="block text-sm font-medium text-gray-700">Description</label>
+            <label className="block text-sm font-medium text-gray-700">
+              Description
+            </label>
             <textarea
               name="description"
               value={formData.description}
@@ -51,7 +57,9 @@ const ProjectSetupForm = () => {
       case 3:
         return (
           <div>
-            <label className="block text-sm font-medium text-gray-700">Basic Info</label>
+            <label className="block text-sm font-medium text-gray-700">
+              Basic Info
+            </label>
             <input
               type="text"
               name="basicInfo"
@@ -65,7 +73,9 @@ const ProjectSetupForm = () => {
       case 4:
         return (
           <div>
-            <label className="block text-sm font-medium text-gray-700">Media</label>
+            <label className="block text-sm font-medium text-gray-700">
+              Media
+            </label>
             <input
               type="file"
               name="media"
@@ -86,25 +96,25 @@ const ProjectSetupForm = () => {
         {/* Step Indicators */}
         <div className="flex justify-between text-sm font-medium text-gray-500">
           <button
-            className={currentStep === 1 ? 'text-blue-500' : ''}
+            className={currentStep === 1 ? "text-blue-500" : ""}
             onClick={() => setCurrentStep(1)}
           >
             1. Project Title
           </button>
           <button
-            className={currentStep === 2 ? 'text-blue-500' : ''}
+            className={currentStep === 2 ? "text-blue-500" : ""}
             onClick={() => setCurrentStep(2)}
           >
             2. Description
           </button>
           <button
-            className={currentStep === 3 ? 'text-blue-500' : ''}
+            className={currentStep === 3 ? "text-blue-500" : ""}
             onClick={() => setCurrentStep(3)}
           >
             3. Basic Info
           </button>
           <button
-            className={currentStep === 4 ? 'text-blue-500' : ''}
+            className={currentStep === 4 ? "text-blue-500" : ""}
             onClick={() => setCurrentStep(4)}
           >
             4. Media
@@ -113,16 +123,17 @@ const ProjectSetupForm = () => {
 
         {/* Form Title */}
         <h2 className="text-2xl font-semibold text-gray-800 text-center">
-          {currentStep === 1 && 'Give your project a title'}
-          {currentStep === 2 && 'Describe your project'}
-          {currentStep === 3 && 'Provide basic information'}
-          {currentStep === 4 && 'Upload media'}
+          {currentStep === 1 && "Give your project a title"}
+          {currentStep === 2 && "Describe your project"}
+          {currentStep === 3 && "Provide basic information"}
+          {currentStep === 4 && "Upload media"}
         </h2>
         <p className="text-center text-gray-500">
-          {currentStep === 1 && 'Get started by naming the project you want to showcase'}
-          {currentStep === 2 && 'Add a description for your project'}
-          {currentStep === 3 && 'Enter basic information about your project'}
-          {currentStep === 4 && 'Upload media related to your project'}
+          {currentStep === 1 &&
+            "Get started by naming the project you want to showcase"}
+          {currentStep === 2 && "Add a description for your project"}
+          {currentStep === 3 && "Enter basic information about your project"}
+          {currentStep === 4 && "Upload media related to your project"}
         </p>
 
         {/* Step Content */}
@@ -149,7 +160,6 @@ const ProjectSetupForm = () => {
 };
 
 export default ProjectSetupForm;
-
 
 // Fixed Size and Responsiveness:
 

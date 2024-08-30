@@ -1,4 +1,4 @@
-'use client'; 
+"use client";
 import React, { useEffect, useRef } from "react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
@@ -36,28 +36,32 @@ const Steps = ({ title }: { title: string }) => {
   const steps = [
     {
       number: 1,
-      description: "Start by signing up or logging in using your social media accounts for a seamless experience.",
+      description:
+        "Start by signing up or logging in using your social media accounts for a seamless experience.",
       icon: "assets/step1.svg",
       height: "11rem",
       paddingLeft: "0",
     },
     {
       number: 2,
-      description: "Choose the field that best represents your expertise or interest. Browse through a selection of templates tailored to your chosen field and pick the one that suits you best.",
+      description:
+        "Choose the field that best represents your expertise or interest. Browse through a selection of templates tailored to your chosen field and pick the one that suits you best.",
       icon: "assets/step2.svg",
       height: "11rem",
       paddingLeft: "0",
     },
     {
       number: 3,
-      description: "Personalize your chosen template by adjusting the colors, sizes, and design elements to match your style and preferences.",
+      description:
+        "Personalize your chosen template by adjusting the colors, sizes, and design elements to match your style and preferences.",
       icon: "assets/step3.svg",
       height: "14rem",
       paddingLeft: "0",
     },
     {
       number: 4,
-      description: "Explore the pricing options and choose a plan that fits your needs. Once satisfied with your customization, publish your portfolio to showcase your work to the world.",
+      description:
+        "Explore the pricing options and choose a plan that fits your needs. Once satisfied with your customization, publish your portfolio to showcase your work to the world.",
       icon: "assets/step4.svg",
       height: "14rem",
       paddingLeft: "0",
@@ -66,7 +70,7 @@ const Steps = ({ title }: { title: string }) => {
 
   return (
     <section className="min-h-screen w-full flex flex-col bg-indigo-900 p-4 sm:p-8">
-      <h1 className="text-white text-3xl sm:text-5xl font-light text-center mb-8 sm:mb-16">
+      <h1 className="text-white text-3xl sm:text-5xl font-light text-center mt-8 mb-8 sm:mb-16">
         {title}
       </h1>
       <div className="flex flex-col items-center space-y-8 sm:space-y-16">
