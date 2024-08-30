@@ -15,9 +15,6 @@ const page = () => {
 <Signinform/>
 <Signupform/>
 </>
-
-
-
   )
 }
 
