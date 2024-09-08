@@ -1,23 +1,19 @@
-import About from "../components/Templates/Portfolio-3/About";
-import Contact from "../components/Templates/Portfolio-3/Contact";
-import Experience from "../components/Templates/Portfolio-3/Experience";
-import Header from "../components/Templates/Portfolio-3/Header" ;
-import Hero from "../components/Templates/Portfolio-3/Hero";
-import Projects from "../components/Templates/Portfolio-3/Projects";
+import AboutUs from "../components/Templates/PortfolioTemplate-5/AboutUs";
+import ContactMe from "../components/Templates/PortfolioTemplate-5/ContactMe";
+import Hero from "../components/Templates/PortfolioTemplate-5/Hero";
+import Navbar from "../components/Templates/PortfolioTemplate-5/Navbar"; // Choose the correct path
+import MyProjects from "../components/Templates/PortfolioTemplate-5/MyProjects";
+import OurServices from "../components/Templates/PortfolioTemplate-5/OurServices";
 
 export default function Home() {
   return (
     <div>
- <Header/>
-     <Hero/> 
-     <Projects/>
-      < About/>
-      <Experience/>
-      <Contact/>
-      
-       
-
-    
+      <Navbar />
+      <Hero />
+      <AboutUs />
+      <OurServices />
+      <MyProjects />
+      <ContactMe />
     </div>
   );
 }
