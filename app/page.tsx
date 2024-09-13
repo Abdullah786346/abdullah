@@ -20,6 +20,10 @@ export default function Home() {
       <section id="OurServices" className="min-h-screen bg-gray-300">
         <OurServices />
       </section>
+      
+      <section id="MyProjects" className="min-h-screen bg-gray-300">
+        <MyProjects />
+      </section>
 
       <section id="ContactMe" className="min-h-screen bg-gray-400">
         <ContactMe />

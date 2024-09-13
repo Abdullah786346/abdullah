@@ -6,37 +6,41 @@ const ProjectGallery: React.FC = () => {
   const [activeImage, setActiveImage] = useState<string | null>(null);
 
   const projectImages: { src: string, url: string }[] = [
-    { src: '/assets/pic 1.svg', url: 'https://example.com/project1' },
-    { src: '/assets/pic 2.svg', url: 'https://example.com/project2' },
-    { src: '/assets/pic 3.svg', url: 'https://example.com/project3' },
-    { src: '/assets/pic 4.svg', url: 'https://example.com/project4' },
-    { src: '/assets/pic 5.svg', url: 'https://example.com/project5' },
-    { src: '/assets/pic 6.svg', url: 'https://example.com/project6' },
+    { src: '/assets/pic 1.svg', url: 'https://github.com/Abdullah786346/abdullah.git' },
+    { src: '/assets/pic 2.svg', url: 'https://github.com/Abdullah786346/WebisteForDonation.git' },
+    { src: '/assets/pic 3.svg', url: 'https://github.com/Abdullah786346/javascriptprojects.git' },
   ];
 
   return (
-    <div className="bg-gray-900 min-h-screen flex flex-col items-center py-10 px-4">
-      <h1 className="text-4xl text-white mb-8">Our Projects</h1>
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+    <div className="bg-gray-900 min-h-screen flex flex-col items-center py-12 px-6">
+      {/* Section Title */}
+      <h1 className="text-4xl md:text-5xl lg:text-6xl text-white  mb-12 text-center">
+        My Projects
+      </h1>
+
+      {/* Grid for Project Images */}
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 max-w-[1200px] w-full">
         {projectImages.map((project, index) => (
           <div
             key={index}
-            className="relative group h-64 w-full flex justify-center items-center p-4"
+            className="relative group h-72 w-full flex justify-center items-center overflow-hidden rounded-lg shadow-lg transform transition-all duration-300 hover:scale-105 hover:shadow-2xl"
             onMouseEnter={() => setActiveImage(project.src)}
             onMouseLeave={() => setActiveImage(null)}
           >
             <img
               src={project.src}
               alt={`Project ${index + 1}`}
-              className="h-full w-full object-cover rounded-lg transition-transform duration-300 transform group-hover:scale-105"
+              className="h-full w-full object-cover transition-transform duration-300 transform group-hover:scale-110"
             />
+
+            {/* Overlay with Button */}
             {activeImage === project.src && (
-              <div className="absolute inset-0 flex items-center justify-center bg-black bg-opacity-60 rounded-lg p-4">
+              <div className="absolute inset-0 flex items-center justify-center bg-black bg-opacity-70 transition-opacity duration-300 p-4 rounded-lg">
                 <a
                   href={project.url}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="text-white text-lg font-semibold bg-[#01eeff] px-4 py-2 rounded-md shadow-lg hover:shadow-2xl transition duration-300"
+                  className="text-white text-lg md:text-xl lg:text-2xl font-semibold bg-[#01eeff] px-6 py-3 rounded-md shadow-lg hover:shadow-2xl transition-all duration-300"
                 >
                   View Project
                 </a>
