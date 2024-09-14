@@ -62,6 +62,7 @@ const Hero = () => {
 
             <p className="text-white text-base sm:text-lg md:text-xl lg:text-2xl mb-4">
               And I’m a passionate developer ready to bring ideas to life.
+             
             </p>
          
             <a
@@ -80,9 +81,15 @@ const Hero = () => {
         {/* Image Section */}
         <div className="relative w-full md:w-1/2 flex justify-center items-center">
           <img 
+
+            src="/assets/goodimage (1).png" 
+            alt="image" 
+            className="relative z-10 w-30 sm:w-40 md:w-[350px] h-auto object-cover absolute bottom-[80px] md:bottom-1/5 translate-y-1/5 md:translate-y-8"
+
             src="/assets/goodimage.png" 
             alt="Girl Image" 
             className="w-56 sm:w-72 lg:w-[500px] h-auto object-cover" 
+
           />
         </div>
       </div>
