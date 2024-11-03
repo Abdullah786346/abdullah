@@ -1,5 +1,5 @@
 "use client";
-
+import Image from 'next/image';
 import React, { useState, useEffect } from "react";
 
 export default function AboutMeSection() {
@@ -55,15 +55,15 @@ export default function AboutMeSection() {
           showContent ? "translate-x-0 opacity-100" : "-translate-x-full opacity-0"
         } ${isSmallScreen ? "w-3/4 h-auto mb-8" : "w-[400px] h-[400px] mr-12"}`}
       >
-        <img
+        <Image
           src="/assets/circle.png"
           alt="Profile"
+          width={300} // adjust dimensions as needed
+          height={450} // adjust dimensions as needed
           className={`object-cover rounded-full shadow-lg ${
-            isSmallScreen
-              ? "w-[200px] h-[300px] ml-[80px]"
-              : "w-[300px] h-[450px]"
+            isSmallScreen ? "w-[200px] h-[300px] ml-[80px]" : "w-[300px] h-[450px]"
           }`}
-          loading="lazy"
+          priority // Ensures this image loads immediately for performance
         />
       </div>
 

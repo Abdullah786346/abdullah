@@ -1,11 +1,12 @@
 "use client";
 
 import React, { useState } from 'react';
+import Image from 'next/image';
 
 const ProjectGallery: React.FC = () => {
   const [activeImage, setActiveImage] = useState<string | null>(null);
 
-  const projectImages: { src: string, url: string }[] = [
+  const projectImages: { src: string; url: string }[] = [
     { src: '/assets/pic 1.svg', url: 'https://github.com/Abdullah786346/abdullah.git' },
     { src: '/assets/pic 2.svg', url: 'https://github.com/Abdullah786346/WebisteForDonation.git' },
     { src: '/assets/pic 3.svg', url: 'https://github.com/Abdullah786346/javascriptprojects.git' },
@@ -14,7 +15,7 @@ const ProjectGallery: React.FC = () => {
   return (
     <div className="bg-gray-900 min-h-screen flex flex-col items-center py-12 px-6">
       {/* Section Title */}
-      <h1 className="text-4xl md:text-5xl lg:text-6xl text-white  mb-12 text-center">
+      <h1 className="text-4xl md:text-5xl lg:text-6xl text-white mb-12 text-center">
         My Projects
       </h1>
 
@@ -27,10 +28,12 @@ const ProjectGallery: React.FC = () => {
             onMouseEnter={() => setActiveImage(project.src)}
             onMouseLeave={() => setActiveImage(null)}
           >
-            <img
+            <Image
               src={project.src}
               alt={`Project ${index + 1}`}
-              className="h-full w-full object-cover transition-transform duration-300 transform group-hover:scale-110"
+              layout="fill"
+              objectFit="cover"
+              className="transition-transform duration-300 transform group-hover:scale-110"
             />
 
             {/* Overlay with Button */}
