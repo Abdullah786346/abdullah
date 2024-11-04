@@ -1,8 +1,6 @@
 "use client";
-import React, { useState, useEffect, useMemo } from 'react';
+import React, { useState, useEffect, useMemo, useRef } from 'react';
 import Image from 'next/image';
-import { motion, useAnimation } from 'framer-motion';
-import { useInView } from 'react-intersection-observer';
 
 const Hero = () => {
   const [text, setText] = useState('');
@@ -10,12 +8,10 @@ const Hero = () => {
   const [delta, setDelta] = useState(100);
   const [loopNum, setLoopNum] = useState(0);
   const period = 1000;
-
-  const toRotate = useMemo(() => ["UI/UX Designer", "Backend Developer", "Frontend Developer"], []);
+  const textRef = useRef(null);
+  const imageRef = useRef(null);
   
-  // Framer Motion controls for scroll animations
-  const { ref: textRef, inView: textInView } = useInView({ triggerOnce: true, threshold: 0.2 });
-  const { ref: imageRef, inView: imageInView } = useInView({ triggerOnce: true, threshold: 0.2 });
+  const toRotate = useMemo(() => ["UI/UX Designer", "Backend Developer", "Frontend Developer"], []);
 
   useEffect(() => {
     const tick = () => {
@@ -47,17 +43,36 @@ const Hero = () => {
     return () => clearInterval(ticker);
   }, [text, delta, isDeleting, loopNum, toRotate]);
 
+  // Intersection Observer for scroll animations
+  useEffect(() => {
+    const observerOptions = { threshold: 0.2 };
+
+    const observerCallback = (entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add("fade-in");
+        }
+      });
+    };
+
+    const observer = new IntersectionObserver(observerCallback, observerOptions);
+    if (textRef.current) observer.observe(textRef.current);
+    if (imageRef.current) observer.observe(imageRef.current);
+
+    return () => {
+      if (textRef.current) observer.unobserve(textRef.current);
+      if (imageRef.current) observer.unobserve(imageRef.current);
+    };
+  }, []);
+
   return (
     <div className="bg-black min-h-screen flex flex-col justify-center items-center px-6 py-10">
       <div className="flex flex-col md:flex-row items-center justify-between max-w-screen-lg mx-auto w-full">
         
         {/* Text Content with Scroll Animation */}
-        <motion.div
+        <div
           ref={textRef}
-          initial={{ opacity: 0, y: 50 }}
-          animate={textInView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 1 }}
-          className="text-center md:text-left md:w-1/2 space-y-5 px-4 md:px-0 mb-8 md:mb-0"
+          className="text-content text-center md:text-left md:w-1/2 space-y-5 px-4 md:px-0 mb-8 md:mb-0 opacity-0"
         >
           <h1 className="text-white text-3xl sm:text-4xl md:text-5xl font-light tracking-wider">
             Hello It&apos;s Me
@@ -78,15 +93,12 @@ const Hero = () => {
           >
             Download CV
           </a>
-        </motion.div>
+        </div>
 
         {/* Image Section with Scroll Animation */}
-        <motion.div
+        <div
           ref={imageRef}
-          initial={{ opacity: 0, x: 50 }}
-          animate={imageInView ? { opacity: 1, x: 0 } : {}}
-          transition={{ duration: 1 }}
-          className="md:w-1/2 flex justify-center"
+          className="image-content md:w-1/2 flex justify-center opacity-0"
         >
           <div className="w-60 sm:w-72 md:w-80 lg:w-[400px]">
             <Image 
@@ -98,8 +110,24 @@ const Hero = () => {
               className="object-cover rounded-full"
             />
           </div>
-        </motion.div>
+        </div>
       </div>
+
+      <style jsx>{`
+        /* Initial state for hidden elements */
+        .text-content,
+        .image-content {
+          opacity: 0;
+          transform: translateY(50px);
+          transition: opacity 0.8s ease, transform 0.8s ease;
+        }
+
+        /* Fade-in effect when in view */
+        .fade-in {
+          opacity: 1 !important;
+          transform: translateY(0) !important;
+        }
+      `}</style>
     </div>
   );
 };
