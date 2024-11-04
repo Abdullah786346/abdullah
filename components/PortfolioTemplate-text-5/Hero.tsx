@@ -1,20 +1,23 @@
 "use client";
 import React, { useState, useEffect, useMemo } from 'react';
 import Image from 'next/image';
+import { motion, useAnimation } from 'framer-motion';
+import { useInView } from 'react-intersection-observer';
 
 const Hero = () => {
   const [text, setText] = useState('');
   const [isDeleting, setIsDeleting] = useState(false);
   const [delta, setDelta] = useState(100);
   const [loopNum, setLoopNum] = useState(0);
-  const [isTextVisible, setIsTextVisible] = useState(false);
-  const [isImageVisible, setIsImageVisible] = useState(false);
   const period = 1000;
 
   const toRotate = useMemo(() => ["UI/UX Designer", "Backend Developer", "Frontend Developer"], []);
+  
+  // Framer Motion controls for scroll animations
+  const { ref: textRef, inView: textInView } = useInView({ triggerOnce: true, threshold: 0.2 });
+  const { ref: imageRef, inView: imageInView } = useInView({ triggerOnce: true, threshold: 0.2 });
 
   useEffect(() => {
-    // Text typing effect
     const tick = () => {
       let i = loopNum % toRotate.length;
       let fullText = toRotate[i];
@@ -44,21 +47,17 @@ const Hero = () => {
     return () => clearInterval(ticker);
   }, [text, delta, isDeleting, loopNum, toRotate]);
 
-  useEffect(() => {
-    // Animation effect: Show text first, then image
-    setTimeout(() => setIsTextVisible(true), 500); // Text animation delay
-    setTimeout(() => setIsImageVisible(true), 1000); // Image animation delay
-  }, []);
-
   return (
     <div className="bg-black min-h-screen flex flex-col justify-center items-center px-6 py-10">
       <div className="flex flex-col md:flex-row items-center justify-between max-w-screen-lg mx-auto w-full">
         
-        {/* Text Content */}
-        <div
-          className={`transition-opacity duration-1000 ${
-            isTextVisible ? "opacity-100" : "opacity-0"
-          } text-center md:text-left md:w-1/2 space-y-5 px-4 md:px-0 mb-8 md:mb-0`}
+        {/* Text Content with Scroll Animation */}
+        <motion.div
+          ref={textRef}
+          initial={{ opacity: 0, y: 50 }}
+          animate={textInView ? { opacity: 1, y: 0 } : {}}
+          transition={{ duration: 1 }}
+          className="text-center md:text-left md:w-1/2 space-y-5 px-4 md:px-0 mb-8 md:mb-0"
         >
           <h1 className="text-white text-3xl sm:text-4xl md:text-5xl font-light tracking-wider">
             Hello It&apos;s Me
@@ -79,13 +78,15 @@ const Hero = () => {
           >
             Download CV
           </a>
-        </div>
+        </motion.div>
 
-        {/* Image Section */}
-        <div
-          className={`transition-opacity duration-1000 transform ${
-            isImageVisible ? "opacity-100 scale-100" : "opacity-0 scale-75"
-          } md:w-1/2 flex justify-center`}
+        {/* Image Section with Scroll Animation */}
+        <motion.div
+          ref={imageRef}
+          initial={{ opacity: 0, x: 50 }}
+          animate={imageInView ? { opacity: 1, x: 0 } : {}}
+          transition={{ duration: 1 }}
+          className="md:w-1/2 flex justify-center"
         >
           <div className="w-60 sm:w-72 md:w-80 lg:w-[400px]">
             <Image 
@@ -97,11 +98,10 @@ const Hero = () => {
               className="object-cover rounded-full"
             />
           </div>
-        </div>
+        </motion.div>
       </div>
     </div>
   );
 };
 
 export default Hero;
-
