@@ -72,7 +72,7 @@ const Hero = () => {
         {/* Text Content with Scroll Animation */}
         <div
           ref={textRef}
-          className="text-content text-center md:text-left md:w-1/2 space-y-5 px-4 md:px-0 mb-8 md:mb-0 opacity-0"
+          className="text-content text-center md:text-left md:w-1/2 space-y-5 px-4 md:px-0 mb-8 md:mb-0 opacity-0 transform transition-opacity duration-800 ease-out translate-y-12 fade-in"
         >
           <h1 className="text-white text-3xl sm:text-4xl md:text-5xl font-light tracking-wider">
             Hello It&apos;s Me
@@ -98,13 +98,12 @@ const Hero = () => {
         {/* Image Section with Scroll Animation */}
         <div
           ref={imageRef}
-          className="image-content md:w-1/2 flex justify-center opacity-0"
+          className="image-content md:w-1/2 flex justify-center opacity-0 transform transition-opacity duration-800 ease-out translate-y-12 fade-in"
         >
           <div className="w-60 sm:w-72 md:w-80 lg:w-[400px]">
             <Image 
               src="/assets/goodimage.png" 
               alt="Hero Image" 
-              layout="responsive"
               width={500}
               height={500}
               className="object-cover rounded-full"
@@ -113,16 +112,7 @@ const Hero = () => {
         </div>
       </div>
 
-      <style jsx>{`
-        /* Initial state for hidden elements */
-        .text-content,
-        .image-content {
-          opacity: 0;
-          transform: translateY(50px);
-          transition: opacity 0.8s ease, transform 0.8s ease;
-        }
-
-        /* Fade-in effect when in view */
+      <style global jsx>{`
         .fade-in {
           opacity: 1 !important;
           transform: translateY(0) !important;
