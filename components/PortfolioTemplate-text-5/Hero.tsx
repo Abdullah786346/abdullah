@@ -67,7 +67,7 @@ const Hero = () => {
           </a>
         </div>
         {/* Image Section */}
-        <div className="relative w-64 sm:w-80 md:w-96 lg:w-[400px] xl:w-[470px] 2xl:w-[500px] flex justify-center items-center   md:mb-0 md:ml-12">
+        <div className="relative w-64 sm:w-80 md:w-96 lg:w-[400px] xl:w-[470px] 2xl:w-[500px] flex justify-center items-center md:mb-0 md:ml-12">
           <Image
             src="/assets/goodimage.png"
             alt="Profile Image"
