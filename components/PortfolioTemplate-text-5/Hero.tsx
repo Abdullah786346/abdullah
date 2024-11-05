@@ -1,5 +1,5 @@
 "use client";
-import React, { useState, useEffect, useMemo, useRef } from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
 import Image from 'next/image';
 
 const Hero = () => {
@@ -8,9 +8,7 @@ const Hero = () => {
   const [delta, setDelta] = useState(100);
   const [loopNum, setLoopNum] = useState(0);
   const period = 1000;
-  const textRef = useRef(null);
-  const imageRef = useRef(null);
-  
+
   const toRotate = useMemo(() => ["UI/UX Designer", "Backend Developer", "Frontend Developer"], []);
 
   useEffect(() => {
@@ -40,84 +38,50 @@ const Hero = () => {
     };
 
     const ticker = setInterval(tick, delta);
+
     return () => clearInterval(ticker);
   }, [text, delta, isDeleting, loopNum, toRotate]);
 
-  // Intersection Observer for scroll animations
-  useEffect(() => {
-    const observerOptions = { threshold: 0.2 };
-
-    const observerCallback = (entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add("fade-in");
-        }
-      });
-    };
-
-    const observer = new IntersectionObserver(observerCallback, observerOptions);
-    if (textRef.current) observer.observe(textRef.current);
-    if (imageRef.current) observer.observe(imageRef.current);
-
-    return () => {
-      if (textRef.current) observer.unobserve(textRef.current);
-      if (imageRef.current) observer.unobserve(imageRef.current);
-    };
-  }, []);
-
   return (
-    <div className="bg-black min-h-screen flex flex-col justify-center items-center px-6 py-10">
-      <div className="flex flex-col md:flex-row items-center justify-between max-w-screen-lg mx-auto w-full">
-        
-        {/* Text Content with Scroll Animation */}
-        <div
-          ref={textRef}
-          className="text-content text-center md:text-left md:w-1/2 space-y-5 px-4 md:px-0 mb-8 md:mb-0 opacity-0 transform transition-opacity duration-800 ease-out translate-y-12 fade-in"
-        >
-          <h1 className="text-white text-3xl sm:text-4xl md:text-5xl font-light tracking-wider">
-            Hello It&apos;s Me
-          </h1>
-          <h2 className="text-white text-4xl sm:text-5xl md:text-6xl font-bold">
-            Muhammad Abdullah
-          </h2>
-          <p className="text-white text-xl sm:text-2xl md:text-3xl">
-            I&apos;m a <span className="text-cyan-400">{text}</span>
-          </p>
-          <p className="text-white text-lg sm:text-xl md:text-2xl">
-            And I’m a passionate developer ready to bring ideas to life.
-          </p>
-          <a
-            href="/abdullahcv.pdf"
-            download="Muhammad_Abdullah_CV.pdf"
-            className="bg-[#01eeff] text-white px-5 py-3 rounded-md shadow-lg hover:shadow-xl transition-transform duration-300 hover:scale-105 inline-block text-center"
-          >
-            Download CV
-          </a>
-        </div>
-
-        {/* Image Section with Scroll Animation */}
-        <div
-          ref={imageRef}
-          className="image-content md:w-1/2 flex justify-center opacity-0 transform transition-opacity duration-800 ease-out translate-y-12 fade-in"
-        >
-          <div className="w-60 sm:w-72 md:w-80 lg:w-[400px]">
-            <Image 
-              src="/assets/goodimage.png" 
-              alt="Hero Image" 
-              width={500}
-              height={500}
-              className="object-cover rounded-full"
-            />
+    <div className="bg-black h-screen flex flex-col justify-left items-left px-4 py-8">
+      <div className="flex flex-col md:flex-row items-center justify-left md:justify-left max-w-screen-xl mx-auto w-full">
+        {/* Text Content */}
+        <div className="flex flex-col items-left md:items-start text-left md:text-left mb-[-40px] md:mb-0 md:w-1/2 mt-[100px] ml-[20px] pb-10"> {/* Added padding-bottom */}
+          <div className="mb-0 md:mb-0">
+            <h1 className="text-white text-xl sm:text-2xl md:text-3xl lg:text-4xl font-light tracking-wider mb-2 sm:mb-4">
+              Hello It&apos;s Me
+            </h1>
+            <h2 className="text-white text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold mb-4 sm:mb-6">
+              Muhammad Abdullah
+            </h2>
+            <p className="text-white text-lg sm:text-xl md:text-2xl lg:text-3xl mb-4 sm:mb-6">
+              I&apos;m a <span className="text-cyan-400">{text}</span>
+            </p>
+            <p className="text-white text-base sm:text-lg md:text-xl lg:text-2xl mb-4">
+              And I’m a passionate developer ready to bring ideas to life.
+            </p>
+            <a
+              href="/abdullahcv.pdf"
+              download="Muhammad_Abdullah_CV.pdf"
+              className="bg-[#01eeff] text-white px-4 sm:px-6 md:px-10 py-2 sm:py-3 md:py-4 rounded-md shadow-[0_0_20px_10px_rgba(1,238,255,0.6)] hover:shadow-[0_0_30px_15px_rgba(1,238,255,0.8)] transition duration-300 cursor-pointer mb-16 inline-block text-center" // Increased margin bottom here
+            >
+              Download CV
+            </a>
           </div>
         </div>
-      </div>
 
-      <style global jsx>{`
-        .fade-in {
-          opacity: 1 !important;
-          transform: translateY(0) !important;
-        }
-      `}</style>
+        {/* Image Section */}
+        <div className="relative w-full md:w-1/2 flex justify-center items-center">
+          <Image 
+            src="/assets/goodimage.png" 
+            alt="Girl Image" 
+            className="w-56 sm:w-72 lg:w-[500px] h-auto object-cover"
+            layout="responsive"
+            width={500}
+            height={500}
+          />
+        </div>
+      </div>
     </div>
   );
 };
