@@ -22,7 +22,7 @@ const Hero = () => {
       setText(updatedText);
 
       if (isDeleting) {
-        setDelta(prevDelta => prevDelta / 3);
+        setDelta((prevDelta) => prevDelta / 3);
       } else {
         setDelta(200);
       }
@@ -38,47 +38,44 @@ const Hero = () => {
     };
 
     const ticker = setInterval(tick, delta);
-
     return () => clearInterval(ticker);
   }, [text, delta, isDeleting, loopNum, toRotate]);
 
   return (
-    <div className="bg-black h-screen flex flex-col justify-left items-left px-4 py-8">
-      <div className="flex flex-col md:flex-row items-center justify-left md:justify-left max-w-screen-xl mx-auto w-full">
+    <div className="bg-black min-h-screen flex flex-col justify-center items-center px-4 py-8">
+      <div className="flex flex-col-reverse md:flex-row items-center max-w-screen-xl mx-auto w-full">
         {/* Text Content */}
-        <div className="flex flex-col items-left md:items-start text-left md:text-left mb-[-40px] md:mb-0 md:w-1/2 mt-[100px] ml-[20px] pb-10"> {/* Added padding-bottom */}
-          <div className="mb-0 md:mb-0">
-            <h1 className="text-white text-xl sm:text-2xl md:text-3xl lg:text-4xl font-light tracking-wider mb-2 sm:mb-4">
-              Hello It&apos;s Me
-            </h1>
-            <h2 className="text-white text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold mb-4 sm:mb-6">
-              Muhammad Abdullah
-            </h2>
-            <p className="text-white text-lg sm:text-xl md:text-2xl lg:text-3xl mb-4 sm:mb-6">
-              I&apos;m a <span className="text-cyan-400">{text}</span>
-            </p>
-            <p className="text-white text-base sm:text-lg md:text-xl lg:text-2xl mb-4">
-              And I’m a passionate developer ready to bring ideas to life.
-            </p>
-            <a
-              href="/abdullahcv.pdf"
-              download="Muhammad_Abdullah_CV.pdf"
-              className="bg-[#01eeff] text-white px-4 sm:px-6 md:px-10 py-2 sm:py-3 md:py-4 rounded-md shadow-[0_0_20px_10px_rgba(1,238,255,0.6)] hover:shadow-[0_0_30px_15px_rgba(1,238,255,0.8)] transition duration-300 cursor-pointer mb-16 inline-block text-center" // Increased margin bottom here
-            >
-              Download CV
-            </a>
-          </div>
+        <div className="text-left md:text-left md:w-1/2 px-4 py-4 pt-[80px] md:pl-12 md:pr-12">
+          <h1 className="text-white text-xl sm:text-2xl md:text-3xl lg:text-4xl font-light tracking-wider mb-1 sm:mb-2">
+            Hello, It&apos;s Me
+          </h1>
+          <h2 className="text-white text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold mb-1 sm:mb-3">
+            Muhammad Abdullah
+          </h2>
+          <p className="text-white text-lg sm:text-xl md:text-2xl lg:text-3xl mb-1 sm:mb-3">
+            I&apos;m a <span className="text-cyan-400">{text}</span>
+          </p>
+          <p className="text-white text-base sm:text-lg md:text-xl lg:text-2xl mb-3 sm:mb-4">
+            And I’m a passionate developer ready to bring ideas to life.
+          </p>
+          <a
+            href="/abdullahcv.pdf"
+            download="Muhammad_Abdullah_CV.pdf"
+            className="bg-[#01eeff] text-white px-4 py-2 rounded-md shadow-lg hover:shadow-xl transition duration-300 mb-4 inline-block text-sm sm:text-base"
+          >
+            Download CV
+          </a>
         </div>
-
         {/* Image Section */}
-        <div className="relative w-full md:w-1/2 flex justify-center items-center">
-          <Image 
-            src="/assets/goodimage.png" 
-            alt="Girl Image" 
-            className="w-56 sm:w-72 lg:w-[500px] h-auto object-cover"
-            layout="responsive"
-            width={500}
-            height={500}
+        <div className="relative w-64 sm:w-80 md:w-96 lg:w-[400px] xl:w-[470px] 2xl:w-[500px] flex justify-center items-center   md:mb-0 md:ml-12">
+          <Image
+            src="/assets/goodimage.png"
+            alt="Profile Image"
+            className="rounded-full object-cover"
+            layout="intrinsic"  // Using 'intrinsic' layout for responsive width and height
+            width={800}         // Larger base width for the image
+            height={800}        // Larger base height (keeping it square for the circular effect)
+            sizes="(max-width: 640px) 35vw, (max-width: 768px) 25vw, 15vw"  // Adjust sizes for responsiveness
           />
         </div>
       </div>
