@@ -8,7 +8,7 @@ export default function AboutMeSection() {
   const title = "About";
   const subtitle = "Frontend Website Developer";
   const description =
-    "Front end developer with one year of experience also doing internship at Codic Solutions.  Email:muhammadabdullahfscem@gmail.com";
+    "Front end developer with one year of experience also doing internship at Codic Solutions.  muhammadabdullahfscem@gmail.com";
   const linkedInUrl =
     "https://www.linkedin.com/in/muhammad-abdullah-7572762b9?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app";
 
