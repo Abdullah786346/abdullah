@@ -41,7 +41,7 @@ export default function AboutMeSection() {
     >
       {/* Image section */}
       <div
-        className={`relative ${isSmallScreen ? "w-3/4 h-auto mb-8 mx-auto" : "w-[400px] h-[400px] mr-[50px]"}`}
+        className={`relative ${isSmallScreen ? "w-3/4 h-auto mb-8 mx-auto" : "w-[400px] h-[400px] mr-[30px]"}`}
       >
         <Image
           src="/assets/circle.png"
