@@ -35,13 +35,15 @@ export default function AboutMeSection() {
     <div
       className={`relative min-h-screen flex ${
         isSmallScreen
-          ? "flex-col items-center text-center pt-12"
+          ? "flex-col items-center justify-center text-center pt-12"
           : "flex-row items-center justify-center"
       } bg-[#2F393F]`}
     >
       {/* Image section */}
       <div
-        className={`relative ${isSmallScreen ? "w-3/4 h-auto mb-8 mx-auto" : "w-[400px] h-[400px] mr-[30px]"}`}
+        className={`relative flex justify-center items-center ${
+          isSmallScreen ? "w-full h-auto mb-8" : "w-[400px] h-[400px] mr-[30px]"
+        }`}
       >
         <Image
           src="/assets/circle.png"
