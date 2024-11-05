@@ -4,7 +4,6 @@ import React, { useState, useEffect } from "react";
 
 export default function AboutMeSection() {
   const [isSmallScreen, setIsSmallScreen] = useState(false);
-  const [showContent, setShowContent] = useState(false);
 
   const title = "About";
   const subtitle = "Frontend Website Developer";
@@ -27,15 +26,6 @@ export default function AboutMeSection() {
     };
   }, []);
 
-  // Simulate delay to show content with animation
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      setShowContent(true);
-    }, 1000); // 1-second delay
-
-    return () => clearTimeout(timer);
-  }, []);
-
   // Handler to open LinkedIn URL
   const handleButtonClick = () => {
     window.open(linkedInUrl, "_blank");
@@ -51,9 +41,7 @@ export default function AboutMeSection() {
     >
       {/* Image section */}
       <div
-        className={`relative transition-transform duration-1000 ease-out transform ${
-          showContent ? "translate-x-0 opacity-100" : "-translate-x-full opacity-0"
-        } ${isSmallScreen ? "w-3/4 h-auto mb-8" : "w-[400px] h-[400px] mr-12"}`}
+        className={`relative ${isSmallScreen ? "w-3/4 h-auto mb-8 mx-auto" : "w-[400px] h-[400px] mr-[50px]"}`}
       >
         <Image
           src="/assets/circle.png"
@@ -61,7 +49,7 @@ export default function AboutMeSection() {
           width={300} // adjust dimensions as needed
           height={450} // adjust dimensions as needed
           className={`object-cover rounded-full shadow-lg ${
-            isSmallScreen ? "w-[200px] h-[300px] ml-[80px]" : "w-[300px] h-[450px]"
+            isSmallScreen ? "w-[200px] h-[300px]" : "w-[300px] h-[450px]"
           }`}
           priority // Ensures this image loads immediately for performance
         />
@@ -69,9 +57,7 @@ export default function AboutMeSection() {
 
       {/* Text section */}
       <div
-        className={`text-white relative transition-transform duration-1000 ease-out transform ${
-          showContent ? "translate-x-0 opacity-100" : "translate-x-full opacity-0"
-        } ${isSmallScreen ? "max-w-[90%] text-sm" : "max-w-[700px] text-lg"} z-10 p-6`}
+        className={`text-white relative ${isSmallScreen ? "max-w-[90%] text-sm" : "max-w-[700px] text-lg"} z-10 p-6`}
       >
         {/* Title */}
         <div
@@ -80,7 +66,7 @@ export default function AboutMeSection() {
           } mb-4`}
         >
           {title}{" "}
-          <span className="text-[#01eeff] transition duration-300 ease-in-out">
+          <span className="text-[#01eeff]">
             Me
           </span>
         </div>
