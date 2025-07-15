@@ -9,17 +9,47 @@ const ContactMe: React.FC = () => {
     email: '',
     message: ''
   });
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitMessage, setSubmitMessage] = useState('');
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
     setFormData(prev => ({ ...prev, [name]: value }));
   };
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    // Here you can handle the form submission, e.g., send data to an API
-    console.log("Form Data Submitted:", formData);
-    // Reset form or show a success message if needed
+    setIsSubmitting(true);
+    setSubmitMessage('');
+
+    try {
+      const response = await fetch('/api/contact', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formData),
+      });
+
+      const data = await response.json();
+
+      if (response.ok) {
+        setSubmitMessage('Your message has been sent successfully! I will get back to you soon.');
+        setFormData({
+          firstName: '',
+          lastName: '',
+          mobileNumber: '',
+          email: '',
+          message: ''
+        });
+      } else {
+        setSubmitMessage(data.message || 'Failed to send message. Please try again.');
+      }
+    } catch (error) {
+      setSubmitMessage('Network error. Please try again later.');
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
@@ -103,12 +133,22 @@ const ContactMe: React.FC = () => {
               required
             />
           </div>
+          {submitMessage && (
+            <div className={`text-center p-3 rounded ${
+              submitMessage.includes('successfully') 
+                ? 'bg-green-600 text-white' 
+                : 'bg-red-600 text-white'
+            }`}>
+              {submitMessage}
+            </div>
+          )}
           <div className="text-center mt-2">
             <button
               type="submit"
-              className="px-6 py-2 bg-[#01eeff] rounded-md shadow-[0_0_20px_10px_rgba(1,238,255,0.6)] hover:shadow-[0_0_30px_15px_rgba(1,238,255,0.8)] transition duration-300"
+              disabled={isSubmitting}
+              className="px-6 py-2 bg-[#01eeff] rounded-md shadow-[0_0_20px_10px_rgba(1,238,255,0.6)] hover:shadow-[0_0_30px_15px_rgba(1,238,255,0.8)] transition duration-300 disabled:opacity-50 disabled:cursor-not-allowed"
             >
-              Submit
+              {isSubmitting ? 'Sending...' : 'Submit'}
             </button>
           </div>
         </form>

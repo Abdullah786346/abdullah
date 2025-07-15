@@ -5,6 +5,7 @@ import OurServices from "../components/PortfolioTemplate-text-5/OurServices";
 import MyProjects from "../components/PortfolioTemplate-text-5/MyProjects";
 import ContactMe from "../components/PortfolioTemplate-text-5/ContactMe";
 import Qualification from "@/components/PortfolioTemplate-text-5/qualification";
+import Footer from "../components/PortfolioTemplate-text-5/Footer";
 
 export default function Home() {
   return (
@@ -32,6 +33,8 @@ export default function Home() {
       <section id="ContactMe" className="min-h-screen bg-gray-400">
         <ContactMe />
       </section>
+      
+      <Footer />
     </div>
   );
 }
