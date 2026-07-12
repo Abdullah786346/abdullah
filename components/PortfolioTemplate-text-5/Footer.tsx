@@ -1,7 +1,9 @@
 "use client";
 import React, { useState } from 'react';
-import { FaFacebookF, FaTwitter, FaLinkedinIn, FaGithub, FaInstagram } from 'react-icons/fa';
+import { FaLinkedinIn, FaGithub } from 'react-icons/fa';
 import { MdEmail, MdPhone, MdLocationOn } from 'react-icons/md';
+
+const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
 const Footer: React.FC = () => {
   const [email, setEmail] = useState('');
@@ -10,6 +12,13 @@ const Footer: React.FC = () => {
 
   const handleNewsletterSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+
+    const trimmedEmail = email.trim();
+    if (!trimmedEmail || !EMAIL_REGEX.test(trimmedEmail)) {
+      setSubscriptionMessage('Please enter a valid email address.');
+      return;
+    }
+
     setIsSubscribing(true);
     setSubscriptionMessage('');
 
@@ -19,7 +28,7 @@ const Footer: React.FC = () => {
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ email }),
+        body: JSON.stringify({ email: trimmedEmail }),
       });
 
       const data = await response.json();
@@ -30,7 +39,7 @@ const Footer: React.FC = () => {
       } else {
         setSubscriptionMessage(data.message || 'Failed to subscribe. Please try again.');
       }
-    } catch (error) {
+    } catch {
       setSubscriptionMessage('Network error. Please try again later.');
     } finally {
       setIsSubscribing(false);
@@ -40,16 +49,14 @@ const Footer: React.FC = () => {
   const currentYear = new Date().getFullYear();
 
   const socialLinks = [
-    { icon: FaFacebookF, href: 'https://facebook.com', label: 'Facebook' },
-    { icon: FaTwitter, href: 'https://twitter.com', label: 'Twitter' },
     { icon: FaLinkedinIn, href: 'https://www.linkedin.com/in/muhammad-abdullah-7572762b9', label: 'LinkedIn' },
     { icon: FaGithub, href: 'https://github.com/Abdullah786346', label: 'GitHub' },
-    { icon: FaInstagram, href: 'https://instagram.com', label: 'Instagram' },
   ];
 
   const quickLinks = [
     { name: 'Home', href: '#Hero' },
     { name: 'About', href: '#AboutUs' },
+    { name: 'Resume', href: '#Qualification' },
     { name: 'Services', href: '#OurServices' },
     { name: 'Projects', href: '#MyProjects' },
     { name: 'Contact', href: '#ContactMe' },
@@ -58,48 +65,53 @@ const Footer: React.FC = () => {
   const services = [
     'UI/UX Design',
     'Frontend Development',
-    'React Development',
+    'Backend Engineering',
     'Next.js Development',
     'Responsive Design',
   ];
 
   return (
-    <footer className="bg-gray-900 text-white">
+    <footer className="bg-[#030712] border-t border-white/5 text-white">
       {/* Main Footer Content */}
-      <div className="max-w-7xl mx-auto px-4 py-12">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+      <div className="max-w-7xl mx-auto px-6 py-16">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12">
           {/* About Section */}
-          <div className="space-y-4">
-            <h3 className="text-2xl font-bold text-[#01eeff] mb-4">Muhammad Abdullah</h3>
-            <p className="text-gray-300 text-sm leading-relaxed">
-              Passionate frontend developer with expertise in React, Next.js, and modern web technologies. 
-              Creating beautiful, responsive, and user-friendly web applications.
+          <div className="space-y-6">
+            <h3 className="text-xl font-bold tracking-wide">
+              <span className="text-[#01eeff] text-glow-cyan">M.</span>Abdullah
+            </h3>
+            <p className="text-gray-400 text-sm leading-relaxed font-light">
+              BS Computer Science student & Full-Stack Developer specializing in React/Next.js, Node.js, Redis, Docker, and clean interactive designs.
             </p>
-            <div className="space-y-2">
-              <div className="flex items-center space-x-2 text-sm">
-                <MdEmail className="text-[#01eeff]" />
-                <span>muhammadabdullahfscem@gmail.com</span>
+            <div className="space-y-3 pt-2">
+              <div className="flex items-center space-x-3 text-sm text-gray-400">
+                <MdEmail className="text-[#01eeff] w-4 h-4" />
+                <a href="mailto:muhammadabdullahfscem@gmail.com" className="hover:text-white transition-colors">
+                  muhammadabdullahfscem@gmail.com
+                </a>
               </div>
-              <div className="flex items-center space-x-2 text-sm">
-                <MdPhone className="text-[#01eeff]" />
-                <span>+92 300 1234567</span>
+              <div className="flex items-center space-x-3 text-sm text-gray-400">
+                <MdPhone className="text-[#01eeff] w-4 h-4" />
+                <a href="tel:03445076088" className="hover:text-white transition-colors">
+                  +92 344 5076088
+                </a>
               </div>
-              <div className="flex items-center space-x-2 text-sm">
-                <MdLocationOn className="text-[#01eeff]" />
+              <div className="flex items-center space-x-3 text-sm text-gray-400">
+                <MdLocationOn className="text-[#01eeff] w-4 h-4" />
                 <span>Rawalpindi, Pakistan</span>
               </div>
             </div>
           </div>
 
           {/* Quick Links */}
-          <div className="space-y-4">
-            <h4 className="text-lg font-semibold text-white mb-4">Quick Links</h4>
-            <ul className="space-y-2">
+          <div className="space-y-6">
+            <h4 className="text-sm font-bold uppercase tracking-wider text-gray-400 border-l-2 border-[#01eeff] pl-3">Quick Links</h4>
+            <ul className="space-y-3 font-light text-sm">
               {quickLinks.map((link, index) => (
                 <li key={index}>
                   <a
                     href={link.href}
-                    className="text-gray-300 hover:text-[#01eeff] transition duration-300 text-sm"
+                    className="text-gray-400 hover:text-[#01eeff] transition duration-300"
                   >
                     {link.name}
                   </a>
@@ -109,11 +121,11 @@ const Footer: React.FC = () => {
           </div>
 
           {/* Services */}
-          <div className="space-y-4">
-            <h4 className="text-lg font-semibold text-white mb-4">Services</h4>
-            <ul className="space-y-2">
+          <div className="space-y-6">
+            <h4 className="text-sm font-bold uppercase tracking-wider text-gray-400 border-l-2 border-[#01eeff] pl-3">Services</h4>
+            <ul className="space-y-3 font-light text-sm text-gray-400">
               {services.map((service, index) => (
-                <li key={index} className="text-gray-300 text-sm">
+                <li key={index}>
                   {service}
                 </li>
               ))}
@@ -121,10 +133,10 @@ const Footer: React.FC = () => {
           </div>
 
           {/* Newsletter Signup */}
-          <div className="space-y-4">
-            <h4 className="text-lg font-semibold text-white mb-4">Stay Updated</h4>
-            <p className="text-gray-300 text-sm mb-4">
-              Subscribe to get updates about new projects and blog posts.
+          <div className="space-y-6">
+            <h4 className="text-sm font-bold uppercase tracking-wider text-gray-400 border-l-2 border-[#01eeff] pl-3">Newsletter</h4>
+            <p className="text-gray-400 text-sm font-light">
+              Subscribe to receive technical guides and project updates.
             </p>
             <form onSubmit={handleNewsletterSubmit} className="space-y-3">
               <input
@@ -133,18 +145,18 @@ const Footer: React.FC = () => {
                 onChange={(e) => setEmail(e.target.value)}
                 placeholder="Enter your email"
                 required
-                className="w-full px-3 py-2 bg-gray-800 text-white rounded focus:outline-none focus:ring-2 focus:ring-[#01eeff] text-sm"
+                className="w-full px-4 py-2.5 bg-white/5 border border-white/10 hover:border-white/20 focus:border-[#01eeff]/80 focus:ring-2 focus:ring-[#01eeff]/15 text-white rounded-lg transition-all duration-300 focus:outline-none text-sm"
               />
               <button
                 type="submit"
                 disabled={isSubscribing}
-                className="w-full bg-[#01eeff] text-white py-2 px-4 rounded hover:bg-cyan-600 transition duration-300 disabled:opacity-50 text-sm font-medium"
+                className="glow-btn-cyan w-full bg-[#01eeff] text-gray-950 font-bold py-2.5 rounded-lg hover:bg-white hover:text-black transition duration-300 disabled:opacity-50 text-sm"
               >
                 {isSubscribing ? 'Subscribing...' : 'Subscribe'}
               </button>
             </form>
             {subscriptionMessage && (
-              <p className={`text-sm ${subscriptionMessage.includes('Successfully') ? 'text-green-400' : 'text-red-400'}`}>
+              <p className={`text-xs ${subscriptionMessage.includes('Successfully') ? 'text-green-400' : 'text-red-400'}`}>
                 {subscriptionMessage}
               </p>
             )}
@@ -153,34 +165,32 @@ const Footer: React.FC = () => {
       </div>
 
       {/* Social Links & Copyright */}
-      <div className="border-t border-gray-800">
-        <div className="max-w-7xl mx-auto px-4 py-6">
-          <div className="flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0">
-            {/* Social Links */}
-            <div className="flex space-x-4">
-              {socialLinks.map((social, index) => (
-                <a
-                  key={index}
-                  href={social.href}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  aria-label={social.label}
-                  className="w-10 h-10 bg-gray-800 rounded-full flex items-center justify-center hover:bg-[#01eeff] transition duration-300 group"
-                >
-                  <social.icon className="w-4 h-4 text-gray-300 group-hover:text-white" />
-                </a>
-              ))}
-            </div>
+      <div className="border-t border-white/5 bg-[#020617]/50">
+        <div className="max-w-7xl mx-auto px-6 py-8 flex flex-col md:flex-row justify-between items-center gap-6">
+          {/* Social Links */}
+          <div className="flex space-x-4">
+            {socialLinks.map((social, index) => (
+              <a
+                key={index}
+                href={social.href}
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label={social.label}
+                className="w-10 h-10 rounded-full border border-gray-800 flex items-center justify-center text-gray-400 hover:text-white hover:bg-[#01eeff]/10 hover:border-[#01eeff] hover:shadow-[0_0_15px_rgba(1,238,255,0.4)] transition-all duration-300"
+              >
+                <social.icon className="w-4 h-4" />
+              </a>
+            ))}
+          </div>
 
-            {/* Copyright */}
-            <div className="text-center md:text-right">
-              <p className="text-gray-400 text-sm">
-                © {currentYear} Muhammad Abdullah. All rights reserved.
-              </p>
-              <p className="text-gray-500 text-xs mt-1">
-                Built with Next.js & Tailwind CSS
-              </p>
-            </div>
+          {/* Copyright */}
+          <div className="text-center md:text-right font-light text-xs text-gray-500">
+            <p>
+              © {currentYear} Muhammad Abdullah. All rights reserved.
+            </p>
+            <p className="mt-1">
+              Built with Next.js & Tailwind CSS
+            </p>
           </div>
         </div>
       </div>
