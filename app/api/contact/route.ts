@@ -1,69 +1,86 @@
 import { NextRequest, NextResponse } from 'next/server';
+import { db, isConfigured } from '@/lib/firebase';
+import { collection, addDoc, getDocs, query, orderBy } from 'firebase/firestore';
 
-// In-memory storage for demo purposes
-let contactMessages: {
+// Constants
+const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+const REQUIRED_FIELDS = ['firstName', 'lastName', 'email', 'message'] as const;
+
+interface ContactMessage {
   id: string;
   firstName: string;
   lastName: string;
   email: string;
   mobileNumber: string;
   message: string;
-  submittedAt: Date;
+  submittedAt: string;
   status: 'new' | 'read' | 'replied';
-}[] = [];
+}
+
+// In-memory fallback if Firebase is not configured
+let fallbackContactMessages: ContactMessage[] = [];
+
+const generateId = (): string => Date.now().toString() + Math.random().toString(36).substr(2, 9);
+const validateEmail = (email: string): boolean => EMAIL_REGEX.test(email);
+const validateRequired = (data: Record<string, any>): { valid: boolean; missing: string[] } => {
+  const missing = REQUIRED_FIELDS.filter(field => !data[field]);
+  return { valid: missing.length === 0, missing };
+};
 
 export async function POST(request: NextRequest) {
   try {
-    const { firstName, lastName, email, mobileNumber, message } = await request.json();
+    const body = await request.json();
+    const { firstName, lastName, email, mobileNumber, message } = body;
 
     // Validate required fields
-    if (!firstName || !lastName || !email || !message) {
+    const { valid, missing } = validateRequired({ firstName, lastName, email, message });
+    if (!valid) {
       return NextResponse.json(
-        { message: 'Please fill in all required fields' },
+        { message: `Please fill in all required fields: ${missing.join(', ')}` },
         { status: 400 }
       );
     }
 
     // Validate email format
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if (!emailRegex.test(email)) {
+    if (!validateEmail(email)) {
       return NextResponse.json(
         { message: 'Please provide a valid email address' },
         { status: 400 }
       );
     }
 
-    // Generate unique ID
-    const id = Date.now().toString() + Math.random().toString(36).substr(2, 9);
-
-    // Create new contact message
-    const newMessage = {
-      id,
-      firstName,
-      lastName,
-      email,
-      mobileNumber: mobileNumber || '',
-      message,
-      submittedAt: new Date(),
-      status: 'new' as const
+    const payload = {
+      firstName: firstName.trim(),
+      lastName: lastName.trim(),
+      email: email.trim().toLowerCase(),
+      mobileNumber: (mobileNumber || '').trim(),
+      message: message.trim(),
+      submittedAt: new Date().toISOString(),
+      status: 'new'
     };
 
-    contactMessages.push(newMessage);
+    let messageId = '';
 
-    // In a real application, you would:
-    // 1. Save to database
-    // 2. Send notification email to admin
-    // 3. Send confirmation email to user
-    // 4. Integrate with CRM system
-
-    console.log(`New contact message from: ${firstName} ${lastName} (${email})`);
-    console.log(`Message: ${message}`);
-    console.log(`Total messages: ${contactMessages.length}`);
+    if (isConfigured && db) {
+      // Save to Firebase Firestore
+      const docRef = await addDoc(collection(db, 'contact_messages'), payload);
+      messageId = docRef.id;
+      console.log(`[CONTACT] Message stored in Firestore with ID: ${messageId}`);
+    } else {
+      // Fallback to in-memory storage
+      messageId = generateId();
+      fallbackContactMessages.push({
+        id: messageId,
+        ...payload,
+        status: 'new'
+      });
+      console.warn('[CONTACT] Firebase not configured. Message stored in fallback memory.');
+    }
 
     return NextResponse.json(
       { 
         message: 'Your message has been sent successfully! I will get back to you soon.',
-        messageId: id
+        messageId: messageId
       },
       { status: 200 }
     );
@@ -78,11 +95,48 @@ export async function POST(request: NextRequest) {
 }
 
 export async function GET() {
-  // Get all contact messages (admin endpoint)
-  return NextResponse.json({
-    totalMessages: contactMessages.length,
-    messages: contactMessages.sort((a, b) => 
-      new Date(b.submittedAt).getTime() - new Date(a.submittedAt).getTime()
-    )
-  });
+  try {
+    if (isConfigured && db) {
+      // Fetch messages from Firestore
+      const q = query(collection(db, 'contact_messages'), orderBy('submittedAt', 'desc'));
+      const querySnapshot = await getDocs(q);
+      const messages = querySnapshot.docs.map(doc => {
+        const data = doc.data();
+        // Handle Firestore Timestamp formatting if necessary
+        let submittedAt = data.submittedAt;
+        if (submittedAt && typeof submittedAt === 'object' && 'toDate' in submittedAt) {
+          submittedAt = (submittedAt as any).toDate().toISOString();
+        }
+        return {
+          id: doc.id,
+          firstName: data.firstName || '',
+          lastName: data.lastName || '',
+          email: data.email || '',
+          mobileNumber: data.mobileNumber || '',
+          message: data.message || '',
+          submittedAt: submittedAt || new Date().toISOString(),
+          status: data.status || 'new'
+        };
+      });
+
+      return NextResponse.json({
+        totalMessages: messages.length,
+        messages
+      });
+    } else {
+      // Fetch from fallback memory
+      return NextResponse.json({
+        totalMessages: fallbackContactMessages.length,
+        messages: [...fallbackContactMessages].sort((a, b) => 
+          new Date(b.submittedAt).getTime() - new Date(a.submittedAt).getTime()
+        )
+      });
+    }
+  } catch (error) {
+    console.error('Failed to fetch contact messages:', error);
+    return NextResponse.json(
+      { message: 'Failed to retrieve messages' },
+      { status: 500 }
+    );
+  }
 }
